@@ -1,1 +1,1 @@
-# WioTempLogger
+# Wio Temperature and Humidity Logger

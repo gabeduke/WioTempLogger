@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wiotmp
+  labels:
+    app: wiotmp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wiotemphu
+  template:
+    metadata:
+      labels:
+        app: wiotemphu
+    spec:
+      containers:
+        - name: wiotemphu
+          image: dukeman/wio-temp-hu-logger
+          command: ["/bin/app"]
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: wiotemphu
