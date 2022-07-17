@@ -3,10 +3,10 @@
 all: build push deploy
 
 push:
-	kim push dukeman/wio-temp-hu-logger
+	@kim push dukeman/wiotemp
 
 build:
-	kim build -t dukeman/wio-temp-hu-logger:latest .
+	@kim build -t dukeman/wiotemp:latest .
 
 deploy:
 	@echo "Deploying manifest"

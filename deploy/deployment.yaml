@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: wiotemphu
-          image: dukeman/wio-temp-hu-logger
+          image: dukeman/wiotemp
           command: ["/bin/app"]
           imagePullPolicy: Always
           envFrom:
