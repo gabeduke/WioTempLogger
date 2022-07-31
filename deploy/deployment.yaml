@@ -5,7 +5,7 @@ metadata:
   labels:
     app: wiotmp
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: wiotemphu
@@ -22,3 +22,8 @@ spec:
           envFrom:
             - secretRef:
                 name: wiotemphu
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name

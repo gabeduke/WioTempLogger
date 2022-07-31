@@ -1,6 +1,4 @@
-FROM golang:1.14-alpine AS build
-RUN apk update && apk upgrade && apk add --no-cache ca-certificates
-RUN update-ca-certificates
+FROM golang:1.14 AS build
 WORKDIR /src/
 COPY main.go go.* /src/
 RUN CGO_ENABLED=0 go build -o /bin/app

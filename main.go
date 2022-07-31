@@ -16,6 +16,8 @@ import (
 const timeoutShort = time.Second * 30
 const timeoutLong = time.Second * 300
 
+var name = getenv("POD_NAME", "wio")
+
 type Humidity struct {
 	Humidity float64 `json:"humidity,omitempty"`
 	Error    string  `json:"error,omitempty"`
@@ -24,6 +26,14 @@ type Humidity struct {
 type Temp struct {
 	CelsiusDegree float64 `json:"celsius_degree,omitempty"`
 	Error         string  `json:"error,omitempty"`
+}
+
+func getenv(key, fallback string) string {
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		return fallback
+	}
+	return value
 }
 
 var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
@@ -37,7 +47,7 @@ var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 func createMQTTClient(brokerURL string, channel chan<- mqtt.Message) mqtt.Client {
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(brokerURL)
-	opts.SetClientID("wio")
+	opts.SetClientID(name)
 
 	opts.SetDefaultPublishHandler(func(client mqtt.Client, msg mqtt.Message) {
 		channel <- msg
